@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "bitbucket-api-extension"
   gem.homepage = "http://github.com/nishio-dens/bitbucket-api-extension"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Bitbucket API extension}
+  gem.description = %Q{}
   gem.email = "nishio@densan-labs.net"
   gem.authors = ["S.nishio"]
   # dependencies defined in Gemfile
