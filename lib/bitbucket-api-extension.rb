@@ -1,5 +1,5 @@
 # coding: utf-8
 
-require 'bitbucket-api-extension/models/project.rb'
-require 'bitbucket-api-extension/models/account.rb'
-require 'bitbucket-api-extension/models/pull_request.rb'
+require 'bitbucket-api-extension/project'
+require 'bitbucket-api-extension/account'
+require 'bitbucket-api-extension/pull_request'
