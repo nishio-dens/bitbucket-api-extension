@@ -48,6 +48,8 @@ class BitbucketApiExtension::Api
     commands
   end
 
+  # 指定したプルリクエストに関連するコメントを取得する
+
   private
 
   def auth_option
