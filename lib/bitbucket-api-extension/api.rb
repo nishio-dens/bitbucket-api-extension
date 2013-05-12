@@ -9,9 +9,9 @@ class BitbucketApiExtension::Api
 
   attr_reader :account, :project
 
-  def initialize(options = {})
-    @account = options[:account]
-    @project = options[:project]
+  def initialize(project, account=nil)
+    @project = project
+    @account = account
   end
 
   # プルリクエスト一覧を取得する
