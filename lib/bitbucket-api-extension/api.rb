@@ -65,6 +65,12 @@ class BitbucketApiExtension::Api
     comment
   end
 
+  # 指定したプルリクエストにコメントを書き込む
+  def post_comment(pull_request, text)
+    url = pull_request_comment_url(@project.organization_name, @project.name, pull_request.id)
+    post(url, content: text)
+  end
+
   private
 
   def auth_option
@@ -81,5 +87,16 @@ class BitbucketApiExtension::Api
 
   def pull_request_comment_url(organization_name, project_name, id)
     "#{BITBUCKET_API_URI}/#{organization_name}/#{project_name}/pullrequests/#{id}/comments"
+  end
+
+  def post(uri, body)
+    uri = URI.parse(uri)
+    request = Net::HTTP::Post.new(uri.path)
+    request.basic_auth(@account.user_id, @account.user_password)
+    request.set_form_data(body)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    http.start { |h| h.request(request) }
   end
 end
