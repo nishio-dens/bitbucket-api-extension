@@ -9,6 +9,7 @@ require 'json'
 require 'net/http'
 require 'uri'
 require 'pathname'
+require 'virtus'
 
 require 'bitbucket-api-extension/project'
 require 'bitbucket-api-extension/account'

@@ -9,6 +9,5 @@ module BitbucketApiExtension
     attribute :title, String
     attribute :request_page_url, String
     attribute :author, String
-    attribute :merge_commands, Array[String]
   end
 end

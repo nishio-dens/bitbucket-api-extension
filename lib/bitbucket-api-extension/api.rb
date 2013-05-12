@@ -27,16 +27,17 @@ class BitbucketApiExtension::Api
       html = Nokogiri::HTML(f.read).xpath('//table[contains(@class,"pullrequest-list")]/tbody/tr')
       list = html.map do |request|
         title = request.xpath('td[@class="title"]/div/a').text
-        PullRequest.new(title: title,
-                        id: title.scan(/#(\d+):.*/)
-                                 .flatten
-                                 .first,
-                        request_page_url: request.xpath('td[@class="title"]/div/a')
-                                                 .map{ |link| BITBUCKET_URI + link['href'] }
-                                                 .first
-                                                 .to_s,
-                        author: request.xpath('td[@class="author"]/div/span')
-                                       .text)
+        BitbucketApiExtension::PullRequest.new(
+          title: title,
+          id: title.scan(/#(\d+):.*/)
+                   .flatten
+                   .first,
+          request_page_url: request.xpath('td[@class="title"]/div/a')
+                                   .map{ |link| BITBUCKET_URI + link['href'] }
+                                   .first
+                                   .to_s,
+          author: request.xpath('td[@class="author"]/div/span')
+                         .text)
       end
     end
     list
@@ -45,6 +46,6 @@ class BitbucketApiExtension::Api
   private
 
   def pull_request_list_url(organization_name, project_name)
-    "#{BITBUCKET_URI}/#{organization_username}/#{project_name}/pull-requests"
+    "#{BITBUCKET_URI}/#{organization_name}/#{project_name}/pull-requests"
   end
 end
