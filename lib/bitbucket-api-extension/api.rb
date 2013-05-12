@@ -49,6 +49,21 @@ class BitbucketApiExtension::Api
   end
 
   # 指定したプルリクエストに関連するコメントを取得する
+  def pull_request_comment(pull_request)
+    url = pull_request_comment_url(@project.organization_name, @project.name, pull_request.id)
+    comment = []
+    open(url, auth_option) do |f|
+      list = JSON.parse(f.read)
+      comment = list.map do |c|
+        BitbucketApiExtension::Comment.new(
+          pull_request_id: c["pull_request_id"],
+          author_username: c["author_info"]["username"],
+          author_display_name: c["author_info"]["display_name"],
+          comment: c["content"])
+      end
+    end
+    comment
+  end
 
   private
 
@@ -62,5 +77,9 @@ class BitbucketApiExtension::Api
 
   def pull_request_list_url(organization_name, project_name)
     "#{BITBUCKET_URI}/#{organization_name}/#{project_name}/pull-requests"
+  end
+
+  def pull_request_comment_url(organization_name, project_name, id)
+    "#{BITBUCKET_API_URI}/#{organization_name}/#{project_name}/pullrequests/#{id}/comments"
   end
 end

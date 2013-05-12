@@ -9,6 +9,5 @@ module BitbucketApiExtension
     attribute :author_username, String
     attribute :author_display_name, String
     attribute :comment, String
-    attribute :deleted, Boolean
   end
 end
