@@ -1,6 +1,33 @@
 = bitbucket-api-extension
 
-Description goes here.
+== Function
+
+* fetch bitbucket pull request list
+* fetch bitbucket pull request comment
+* post comment to bitbucket easily
+
+== Usage
+
+  # initialize
+  account = BitbucketApiExtension::Account.new(user_id: 'your account',
+                                               user_password: 'your password')
+  project = BitbucketApiExtension::Project.new(name: 'your project name',
+                                               organization_name: 'your name or team name')
+  api = BitbucketApiExtension::Api.new(project, account)
+
+  # fetch pull request list
+  pp api.pull_requests
+
+  # merge command
+  first_pullrequest = api.pull_requests.first
+  pp api.merge_commands(first_pullrequest)
+
+  # fetch comment
+  pp api.pull_request_comment(first_pullrequest)
+
+  # post comment
+  api.post_comment(first_pullrequest, "something...")
+
 
 == Contributing to bitbucket-api-extension
  
