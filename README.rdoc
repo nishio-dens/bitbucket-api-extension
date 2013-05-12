@@ -6,6 +6,16 @@
 * fetch bitbucket pull request comment
 * post comment to bitbucket easily
 
+== Installation
+
+Add the following line to your Gemfile
+
+  gem 'bitbucket-api-extension'
+
+and then execute
+
+  bundle install
+
 == Usage
 
   # initialize
