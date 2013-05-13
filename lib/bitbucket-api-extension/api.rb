@@ -38,6 +38,17 @@ class BitbucketApiExtension::Api
     list
   end
 
+  # プルリクエストの詳細情報を取得する
+  def pull_request_detail(pull_request)
+    detail = BitbucketApiExtension::PullRequestDetail.new(pull_request.attributes)
+    open(pull_request.request_page_url, auth_option) do |f|
+      html = Nokogiri::HTML(f.read)
+      p "---"
+      commands = html.xpath('//pre[@class="merge-commands"]/code').text.split("\n")
+    end
+    detail
+  end
+
   # 指定したプルリクエストのマージコマンドを取得する
   def merge_commands(pull_request)
     commands = []
