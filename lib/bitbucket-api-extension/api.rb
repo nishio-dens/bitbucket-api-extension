@@ -43,8 +43,16 @@ class BitbucketApiExtension::Api
     detail = BitbucketApiExtension::PullRequestDetail.new(pull_request.attributes)
     open(pull_request.request_page_url, auth_option) do |f|
       html = Nokogiri::HTML(f.read)
-      p "---"
-      commands = html.xpath('//pre[@class="merge-commands"]/code').text.split("\n")
+      from_to_elements = html.css('div.clearfix div.compare-widget-container div.compare-widget')
+      from = from_to_elements.first
+      push = from_to_elements.last
+      detail.from_user_or_team_name = from.attributes['data-user-name'].try(:value)
+      detail.from_repository_name = from.attributes['data-repo-name'].try(:value)
+      detail.from_branch_name = from.attributes['data-branch-name'].try(:value)
+      detail.from_commit_id = from.attributes['data-commit-id'].try(:value)
+      detail.to_user_or_team_name = push.attributes['data-user-name'].try(:value)
+      detail.to_repository_name = push.attributes['data-repo-name'].try(:value)
+      detail.to_branch_name = push.attributes['data-branch-name'].try(:value)
     end
     detail
   end
